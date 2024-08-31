@@ -1,22 +1,18 @@
-'use client';
+'use client'
 
 import Slider from '@/components/custom/Slider';
 import ProductItem from '@/components/products/ProductItem';
 import Image from 'next/image';
 import Category from '@/components/custom/Category';
 import data from '@/lib/data';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 export default function Home() {
   const [selectedCategories, setSelectedCategories] = useState([]);
 
   const [products, setProducts] = useState(data.products);
 
-  useEffect(() => {
-    filterProducts();
-  }, [selectedCategories]);
-
-  const filterProducts = () => {
+  const filterProducts = useCallback(() => {
     if (selectedCategories.length === 0) {
       setProducts(data.products);
     } else {
@@ -25,7 +21,11 @@ export default function Home() {
       );
       setProducts(filteredProducts);
     }
-  };
+  }, [selectedCategories, data.products]);
+
+  useEffect(() => {
+    filterProducts();
+  }, [filterProducts]);
 
   return (
     <div className="max-w-7xl mx-auto p-4">
@@ -51,5 +51,4 @@ export default function Home() {
       </div>
     </div>
   );
-
 }

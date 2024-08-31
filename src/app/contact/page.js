@@ -1,5 +1,5 @@
-'use client'; // Client-side component
-
+'use client'; 
+import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button'; // ShadCN Button component
 
 export default function Contact() {
